@@ -1,9 +1,11 @@
 package com.example.tutorial3.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -22,7 +24,6 @@ public class StudentController {
 	
 	@RequestMapping("/add")
 	public String index() {
-		System.out.println("BEWE test");
 		return "add";
 	}
 	
@@ -33,7 +34,6 @@ public class StudentController {
 			@RequestParam(value = "gpa", required = true) double gpa
 			) {
 		StudentModel student = new StudentModel(npm, name, gpa);
-		System.out.println("BEWE");
 		studentService.addStudent(student);
 		return "add";
 	}
@@ -54,6 +54,20 @@ public class StudentController {
 		List < StudentModel > students = studentService . selectAllStudents ();
 		model . addAttribute ( "students" , students );
 		return "viewall";
+	}
+	
+	@RequestMapping ( "/student/view/{npm}")
+	public String viewSelectedStudent ( @PathVariable Optional<String> npm, Model model ) {
+		if(npm.isPresent()) {
+			StudentModel student = studentService.selectStudent(npm.get());
+			if(student != null) {
+				model . addAttribute ( "student" , student );
+			}else {
+				model . addAttribute ( "error" , "Cannot find the student with npm " +  npm.get() + ".");
+			}
+		}
+		
+		return "view";
 	}
 	
 	
