@@ -78,8 +78,8 @@ public class StudentController {
 				studentService.deleteStudent(student);
 				model.addAttribute ( "success" , "Student with npm " + npm.get() + " has already been deleted" );
 			}else {
-				model.addAttribute ( "error" , "Cannot find the student with npm " +  npm.get() + "."
-						+ "\n. Delete operation is canceled");
+				model.addAttribute ( "error" , "Cannot find the student with npm " +  npm.get() + ". "
+						+ "Delete operation is canceled");
 			}
 		}
 		
