@@ -8,9 +8,7 @@
 			<h3 th:text = "${error}" >Error Message</h3>
 		</div>
 		<div th:if = "${error == null}">
-			<h3 th:text = "'NPM = ' + ${student.npm}" > Student NPM </h3>
-			<h3 th:text = "'Name = ' + ${student.name}" > Student Name </h3>
-			<h3 th:text = "'GPA = ' + ${student.gpa}" > Student GPA </h3>
+			<h3 th:text = "${success}" >Success Message</h3>
 		</div>
 	</body>
 </html>

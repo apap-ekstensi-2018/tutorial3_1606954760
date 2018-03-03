@@ -52,7 +52,7 @@ public class StudentController {
 	@RequestMapping ( "/student/viewall")
 	public String viewAll ( Model model ) {
 		List < StudentModel > students = studentService . selectAllStudents ();
-		model . addAttribute ( "students" , students );
+		model.addAttribute ( "students" , students );
 		return "viewall";
 	}
 	
@@ -61,13 +61,29 @@ public class StudentController {
 		if(npm.isPresent()) {
 			StudentModel student = studentService.selectStudent(npm.get());
 			if(student != null) {
-				model . addAttribute ( "student" , student );
+				model.addAttribute ( "student" , student );
 			}else {
-				model . addAttribute ( "error" , "Cannot find the student with npm " +  npm.get() + ".");
+				model.addAttribute ( "error" , "Cannot find the student with npm " +  npm.get() + ".");
 			}
 		}
 		
 		return "view";
+	}
+	
+	@RequestMapping ( "/student/delete/{npm}")
+	public String deleteStudent ( @PathVariable Optional<String> npm, Model model ) {
+		if(npm.isPresent()) {
+			StudentModel student = studentService.selectStudent(npm.get());
+			if(student != null) {
+				studentService.deleteStudent(student);
+				model.addAttribute ( "success" , "Student with npm " + npm.get() + " has already been deleted" );
+			}else {
+				model.addAttribute ( "error" , "Cannot find the student with npm " +  npm.get() + "."
+						+ "\n. Delete operation is canceled");
+			}
+		}
+		
+		return "delete";
 	}
 	
 	

@@ -11,4 +11,6 @@ public interface StudentService {
 	
 	void addStudent(StudentModel student);
 	
+	void deleteStudent(StudentModel student);
+	
 }
